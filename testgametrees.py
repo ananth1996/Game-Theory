@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+#%%
 from gametrees import *
 from gameexamples import *
 
@@ -33,6 +33,7 @@ tictactoe = TicTacToeState();
 # Next tests try the Minimax and Alpha-beta implementations.
 
 tictactoe.show()
+#%%
 gamevalue(tictactoe,12)
 
 print("CORRECT VALUE for TicTacToe: 0 (Optimally played Tic Tac Toe -> draw)")

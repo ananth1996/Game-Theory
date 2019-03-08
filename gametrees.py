@@ -14,16 +14,58 @@ calls = 0
 def minimax(player,state,depthLeft):
   global calls
   calls += 1
-  if depthLeft == 0:
+  if depthLeft == 0 or  not len(state.applicableActions(player))  :
     return state.value()
+  next_player = max(0,1-player)
+  #print(f"current player:{player} and next player: {next_player}")
+  if player == 1: #Maximizing Player 
+    best = -float("inf")
+    for action in state.applicableActions(player):
+      next_state = state.successor(player,action)
+      v = minimax(next_player,next_state,depthLeft-1)
+      best = max(best,v)
+  
+  else: #minimizing player 
+    best = float("inf")
+    for action in state.applicableActions(player):
+      next_state = state.successor(player,action)
+      v = minimax(next_player,next_state,depthLeft-1)
+      best = min(best,v)
+  # print(f"best : {best} at depth: {depthLeft} for player: {player}") 
+  return best
+
 ### INSERT YOUR IMPLEMENTATION OF MINIMAX HERE
 ### It should be recursively calling 'minimax'.
 
 def alphabeta(player,state,depthLeft,alpha,beta):
   global calls
   calls += 1
-  if depthLeft == 0:
+  if depthLeft == 0 or  not len(state.applicableActions(player))  :
     return state.value()
+  next_player = max(0,1-player)
+  #print(f"current player:{player} and next player: {next_player}")
+  if player == 1: #Maximizing Player 
+    best = -float("inf")
+    for action in state.applicableActions(player):
+      next_state = state.successor(player,action)
+      v = alphabeta(next_player,next_state,depthLeft-1,alpha,beta)
+      if (v is None):
+        print("V is none ")
+      best = max(best,v)
+      alpha = max(alpha,v)
+      if alpha >= beta :
+        break
+  else: #minimizing player 
+    best = float("inf")
+    for action in state.applicableActions(player):
+      next_state = state.successor(player,action)
+      v = alphabeta(next_player,next_state,depthLeft-1,alpha,beta)
+      best = min(best,v)
+      beta = min(beta,v)
+      if alpha >= beta :
+        return
+  # print(f"best : {best} at depth: {depthLeft} for player: {player}") 
+  return best
 ### INSERT YOUR IMPLEMENTATION OF ALPHABETA HERE
 ### It should be recursively calling 'alphabeta'.
 
@@ -36,3 +78,5 @@ def gamevalue(startingstate,depth):
   v = alphabeta(0,startingstate,depth,0-float("inf"),float("inf"))
   print(str(v) + " value with " + str(calls) + " calls with alphabeta to depth " + str(depth))
   calls = 0
+
+
