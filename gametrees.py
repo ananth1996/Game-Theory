@@ -63,7 +63,7 @@ def alphabeta(player,state,depthLeft,alpha,beta):
       best = min(best,v)
       beta = min(beta,v)
       if alpha >= beta :
-        return
+        break
   # print(f"best : {best} at depth: {depthLeft} for player: {player}") 
   return best
 ### INSERT YOUR IMPLEMENTATION OF ALPHABETA HERE
