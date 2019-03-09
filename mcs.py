@@ -6,8 +6,16 @@ import random
 # Monte Carlo search: randomly choose actions
 
 def monteCarloTrial(player,state,stepsLeft):
-  if stepsLeft==0:
+  # if state.value() is None:
+  # print(f"player {player} actions: {state.applicableActions(player)}, stepsleft :{stepsLeft} statevalue : {state.value()}")
+  # state.show()
+  if stepsLeft==0 or not len(state.applicableActions(player)) :
     return state.value()
+  next_player = max(0,1-player)
+  action = random.choice(state.applicableActions(player))
+  next_state = state.successor(player,action)
+  v = monteCarloTrial(next_player,next_state,stepsLeft-1)
+  return v
 ### WRITE YOUR CODE HERE.
 ### Your code randomly chooses one action, executes it to obtain
 ### a successor state, and continues simulation recursively
